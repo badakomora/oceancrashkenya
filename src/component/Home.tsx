@@ -1,4 +1,4 @@
-import React, { CSSProperties } from "react";
+import React, { CSSProperties, useState } from "react";
 
 // ============================================================================
 // Style Objects
@@ -30,7 +30,7 @@ const styles = {
   } as CSSProperties,
 
   logoIcon: {
-    background: "linear-gradient(135deg, #4d3fff 0%, #7165ff 100%)",
+    background: "linear-gradient(135deg, #2563eb 0%, #1e40af 100%)",
     width: "2.75rem",
     height: "2.75rem",
     borderRadius: "0.75rem",
@@ -47,8 +47,8 @@ const styles = {
     fontWeight: "900",
     textTransform: "uppercase",
     letterSpacing: "2px",
-    fontSize: "clamp(20px, 4vw, 32px)",
-    background: "linear-gradient(90deg, #1c6069, #00c6ff)",
+    fontSize: "clamp(18px, 4vw, 28px)",
+    background: "linear-gradient(90deg, #1e40af, #2563eb)",
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
     cursor: "pointer",
@@ -82,18 +82,8 @@ const styles = {
     gap: "1rem",
   } as CSSProperties,
 
-  signUpBtn: {
-    display: "none" as const,
-    fontSize: "0.875rem",
-    fontWeight: 600,
-    color: "black",
-    background: "none",
-    border: "none",
-    cursor: "pointer",
-  } as CSSProperties,
-
-  loginBtn: {
-    background: "linear-gradient(135deg, #5b4dff 0%, #7265ff 100%)",
+  contactBtn: {
+    background: "linear-gradient(135deg, #2563eb 0%, #1e40af 100%)",
     color: "white",
     padding: "0.75rem 1.75rem",
     borderRadius: "9999px",
@@ -110,6 +100,7 @@ const styles = {
     gap: "4rem",
     alignItems: "center",
     padding: "4rem 0 0",
+    // backgroundImage: "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCTwWXrAQ4rszEKaZpLhTfkM4aDUhmhV-EFkVBkhBsPjcEalno8A_32QnY&s=10')",
   } as CSSProperties,
 
   heroLeft: {
@@ -117,15 +108,14 @@ const styles = {
   } as CSSProperties & { animation: string },
 
   badge: {
-    display: "inline-flex" as const,
-    alignItems: "center",
-    gap: "0.5rem",
-    background: "#edeaff",
-    color: "#5b4dff",
+    display: "inline-block",
     padding: "0.5rem 1.25rem",
+    background: "#eff6ff",
+    color: "#1e40af",
     borderRadius: "9999px",
     fontSize: "0.875rem",
     fontWeight: 600,
+    marginBottom: "1rem",
   } as CSSProperties,
 
   headline: {
@@ -155,31 +145,31 @@ const styles = {
   } as CSSProperties,
 
   primaryBtn: {
-    background: "linear-gradient(135deg, #5b4dff 0%, #7265ff 100%)",
+    background: "linear-gradient(135deg, #2563eb 0%, #1e40af 100%)",
     color: "white",
-    padding: "1rem 2.25rem",
-    borderRadius: "9999px",
+    padding: "1rem 2rem",
+    borderRadius: "0.5rem",
     border: "none",
+    fontSize: "1rem",
     fontWeight: 600,
-    fontSize: "0.875rem",
-    boxShadow: "0 10px 25px rgba(99, 102, 241, 0.2)",
     cursor: "pointer",
     transition: "0.35s ease",
+    boxShadow: "0 10px 25px rgba(0, 0, 0, 0.15)",
   } as CSSProperties,
 
   secondaryBtn: {
+    background: "transparent",
+    color: "#2563eb",
+    padding: "1rem 2rem",
+    borderRadius: "0.5rem",
+    border: "2px solid #2563eb",
+    fontSize: "1rem",
+    fontWeight: 600,
+    cursor: "pointer",
+    transition: "0.35s ease",
     display: "flex" as const,
     alignItems: "center",
     gap: "0.5rem",
-    background: "white",
-    padding: "1rem 2rem",
-    borderRadius: "9999px",
-    border: "none",
-    fontWeight: 600,
-    fontSize: "0.875rem",
-    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)",
-    cursor: "pointer",
-    transition: "all 0.3s ease",
   } as CSSProperties,
 
   featuresGrid: {
@@ -196,7 +186,7 @@ const styles = {
   } as CSSProperties,
 
   featureIcon: {
-    background: "linear-gradient(135deg, #4d3fff 0%, #7165ff 100%)",
+    background: "linear-gradient(135deg, #2563eb 0%, #1e40af 100%)",
     width: "3rem",
     height: "3rem",
     borderRadius: "1rem",
@@ -204,7 +194,7 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
     color: "white",
-    boxShadow: "0 10px 25px rgba(99, 102, 241, 0.2)",
+    boxShadow: "0 10px 25px rgba(37, 99, 235, 0.2)",
     transition: "all 0.3s ease",
     flexShrink: 0,
   } as CSSProperties,
@@ -241,6 +231,7 @@ const styles = {
     background: "white",
     height: "270px",
     transition: "0.45s ease",
+    cursor: "pointer",
   } as CSSProperties,
 
   cardImage: {
@@ -250,7 +241,7 @@ const styles = {
   } as CSSProperties,
 
   cardBadge: {
-    background: "linear-gradient(135deg, #4d3fff 0%, #7165ff 100%)",
+    background: "linear-gradient(135deg, #2563eb 0%, #1e40af 100%)",
     position: "absolute" as const,
     top: "1.25rem",
     right: "1.25rem",
@@ -262,6 +253,7 @@ const styles = {
     justifyContent: "center",
     color: "white",
     fontWeight: 700,
+    fontSize: "1.5rem",
     boxShadow: "0 10px 25px rgba(0, 0, 0, 0.1)",
   } as CSSProperties,
 
@@ -293,67 +285,13 @@ const styles = {
   } as CSSProperties,
 
   gradientCard: {
-    background: "linear-gradient(135deg, #4d3fff 0%, #7165ff 100%)",
+    background: "linear-gradient(135deg, #2563eb 0%, #1e40af 100%)",
   } as CSSProperties,
 
   cardOverlay: {
     position: "absolute" as const,
     inset: 0,
-    background: "linear-gradient(to top, rgba(26, 26, 69, 0.7), transparent)",
-  } as CSSProperties,
-
-  floatingWidgetMember: {
-    position: "absolute" as const,
-    left: "1.25rem",
-    bottom: "1.25rem",
-    right: "1.25rem",
-    background: "white",
-    borderRadius: "1rem",
-    padding: "1rem",
-    boxShadow: "0 25px 50px rgba(0, 0, 0, 0.15)",
-    display: "flex" as const,
-    alignItems: "center",
-    justifyContent: "space-between",
-    animation: "floating 4s ease-in-out infinite",
-  } as CSSProperties & { animation: string },
-
-  memberAvatar: {
-    display: "flex" as const,
-    alignItems: "center",
-    gap: "0.75rem",
-  } as CSSProperties,
-
-  avatarCircle: {
-    width: "2.75rem",
-    height: "2.75rem",
-    borderRadius: "9999px",
-    background: "#f4f4ff",
-    display: "flex" as const,
-    alignItems: "center",
-    justifyContent: "center",
-    fontWeight: 700,
-    fontSize: "0.875rem",
-    color: "#5b4dff",
-  } as CSSProperties,
-
-  memberName: {
-    fontWeight: 600,
-    color: "#111",
-    fontSize: "0.875rem",
-    margin: 0,
-  } as CSSProperties,
-
-  memberStatus: {
-    color: "#8b8b95",
-    fontSize: "0.75rem",
-    marginTop: "0.25rem",
-    margin: 0,
-  } as CSSProperties,
-
-  memberAmount: {
-    color: "#16a26e",
-    fontWeight: 700,
-    fontSize: "0.875rem",
+    background: "linear-gradient(to top, rgba(30, 64, 175, 0.7), transparent)",
   } as CSSProperties,
 
   cardContent: {
@@ -364,7 +302,7 @@ const styles = {
   } as CSSProperties,
 
   contentBox: {
-    background: "rgba(255, 255, 255, 0.9)",
+    background: "rgba(255, 255, 255, 0.95)",
     backdropFilter: "blur(10px)",
     borderRadius: "1rem",
     padding: "1rem",
@@ -388,7 +326,7 @@ const styles = {
   } as CSSProperties,
 
   promoBg: {
-    background: "linear-gradient(to bottom right, #ece9ff, #ddd8ff)",
+    background: "linear-gradient(135deg, #e8f5f1, #d1e8e3)",
     padding: "2rem",
     display: "flex" as const,
     flexDirection: "column" as const,
@@ -409,7 +347,7 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
     fontSize: "1.25rem",
-    color: "#5b4dff",
+    color: "#2563eb",
     boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
   } as CSSProperties,
 
@@ -426,6 +364,87 @@ const styles = {
     color: "#6f6f7a",
     marginTop: "1.25rem",
     lineHeight: "1.75rem",
+    fontSize: "0.875rem",
+  } as CSSProperties,
+
+  paymentModal: {
+    position: "fixed" as const,
+    inset: 0,
+    background: "rgba(0, 0, 0, 0.5)",
+    display: "flex" as const,
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 1000,
+  } as CSSProperties,
+
+  modalContent: {
+    background: "white",
+    borderRadius: "2rem",
+    padding: "2rem",
+    maxWidth: "500px",
+    width: "90%",
+    boxShadow: "0 25px 50px rgba(0, 0, 0, 0.2)",
+  } as CSSProperties,
+
+  modalTitle: {
+    fontSize: "1.75rem",
+    fontWeight: 900,
+    color: "#111",
+    margin: "0 0 1rem 0",
+  } as CSSProperties,
+
+  paymentSteps: {
+    display: "flex" as const,
+    flexDirection: "column" as const,
+    gap: "1.5rem",
+    marginTop: "1.5rem",
+  } as CSSProperties,
+
+  step: {
+    display: "flex" as const,
+    gap: "1rem",
+    alignItems: "flex-start",
+  } as CSSProperties,
+
+  stepNumber: {
+    background: "linear-gradient(135deg, #2563eb 0%, #1e40af 100%)",
+    color: "white",
+    width: "2.5rem",
+    height: "2.5rem",
+    borderRadius: "9999px",
+    display: "flex" as const,
+    alignItems: "center",
+    justifyContent: "center",
+    fontWeight: 700,
+    flexShrink: 0,
+  } as CSSProperties,
+
+  stepContent: {
+    flex: 1,
+  } as CSSProperties,
+
+  stepTitle: {
+    fontWeight: 700,
+    color: "#111",
+    margin: "0 0 0.5rem 0",
+  } as CSSProperties,
+
+  stepDesc: {
+    color: "#777",
+    fontSize: "0.875rem",
+    margin: 0,
+    lineHeight: "1.5",
+  } as CSSProperties,
+
+  closeBtn: {
+    background: "none",
+    border: "none",
+    fontSize: "2rem",
+    cursor: "pointer",
+    color: "#999",
+    position: "absolute" as const,
+    top: "1.5rem",
+    right: "1.5rem",
   } as CSSProperties,
 
   brandsSection: {
@@ -444,21 +463,6 @@ const styles = {
     fontSize: "0.875rem",
     fontWeight: 500,
     margin: 0,
-  } as CSSProperties,
-
-  brandsList: {
-    display: "flex" as const,
-    flexWrap: "wrap" as const,
-    alignItems: "center",
-    gap: "3.5rem",
-    color: "#767688",
-    fontWeight: 800,
-    fontSize: "1.5rem",
-  } as CSSProperties,
-
-  brandItem: {
-    cursor: "pointer",
-    transition: "all 0.3s ease",
   } as CSSProperties,
 };
 
@@ -499,29 +503,13 @@ const keyframes = `
     }
   }
 
-  @media (min-width: 768px) {
-    [data-sign-up-btn] {
-      display: block;
-    }
-  }
-
-  [data-nav-link]:hover::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -8px;
-    height: 2px;
-    background: #5b4dff;
-    width: 100%;
-  }
-
   [data-card]:hover {
     transform: translateY(-8px);
   }
 
   [data-primary-btn]:hover {
     transform: translateY(-4px);
-    box-shadow: 0 15px 35px rgba(92, 82, 255, 0.25);
+    box-shadow: 0 15px 35px rgba(45, 122, 94, 0.25);
   }
 
   [data-secondary-btn]:hover {
@@ -532,10 +520,6 @@ const keyframes = `
   [data-feature-icon]:hover {
     transform: translateY(-1px);
   }
-
-  [data-brand-item]:hover {
-    color: #5b4dff;
-  }
 `;
 
 // ============================================================================
@@ -545,49 +529,42 @@ const keyframes = `
 const Header: React.FC = () => (
   <header style={styles.header}>
     <div style={styles.logo}>
-      <div style={styles.logoIcon}>📚</div>
+      <div style={styles.logoIcon}>💼</div>
       <h2 style={styles.logoText}>OCEANCRASH</h2>
     </div>
 
-    <nav style={styles.nav} data-nav>
-      {["Courses", "Apps", "Videos", "Resources", "Contact"].map((item) => (
-        <a key={item} href="/" style={styles.navLink} data-nav-link>
-          {item}
-        </a>
-      ))}
-    </nav>
-
     <div style={styles.buttonGroup}>
-      <button style={styles.signUpBtn} data-sign-up-btn>
-        Sign Up
-      </button>
-      <button style={styles.loginBtn} data-login-btn>
-        Login
-      </button>
+      <button style={styles.contactBtn}>Contact Us</button>
     </div>
   </header>
 );
 
-const HeroSection: React.FC = () => (
+const HeroSection: React.FC<{ onPaymentClick: () => void }> = ({
+  onPaymentClick,
+}) => (
   <div style={styles.heroContainer} data-hero-container>
     <div style={styles.heroLeft}>
-      <span style={styles.badge}>🎯 Trusted by 50K+ learners & developers</span>
+      <span style={styles.badge}>🚀 Custom Business Solutions</span>
 
       <h1 style={styles.headline} data-headline>
-        Access Premium <br /> Learning Today.
+        Enterprise Software <br /> For Your Business.
       </h1>
 
       <p style={styles.description}>
-        Unlock premium courses, applications, and educational content. Fast
-        checkout with M-Pesa & Paybill. Start learning instantly.
+        Specialized applications for farms and churches. Custom web development
+        and professional IT support. Fast payments via Paybill.
       </p>
 
       <div style={styles.ctaButtons}>
         <button style={styles.primaryBtn} data-primary-btn>
-          Browse Products
+          Explore Solutions
         </button>
-        <button style={styles.secondaryBtn} data-secondary-btn>
-          View Catalog
+        <button
+          style={styles.secondaryBtn}
+          data-secondary-btn
+          onClick={onPaymentClick}
+        >
+          IT Support Payment Info
           <span>↗</span>
         </button>
       </div>
@@ -595,18 +572,30 @@ const HeroSection: React.FC = () => (
       <div style={styles.featuresGrid}>
         {[
           {
-            icon: "💳",
-            title: "M-Pesa & Paybill Ready",
-            desc: "Seamless payment checkout with your preferred method.",
+            icon: "🌾",
+            title: "Farm Management System",
+            desc: "Customizable for any farm size or crop type.",
           },
           {
-            icon: "⚡",
-            title: "Instant Access",
-            desc: "Get immediate access to courses and apps after purchase.",
+            icon: "⛪",
+            title: "Church Management System",
+            desc: "Complete ministry and congregation tools.",
+          },
+          {
+            icon: "🌐",
+            title: "Website Development",
+            desc: "Custom web solutions for any industry.",
+          },
+          {
+            icon: "🛠️",
+            title: "IT Support Consultation",
+            desc: "Expert assessment of your IT needs.",
           },
         ].map((feature, idx) => (
           <div key={idx} style={styles.featureItem}>
-            <div style={styles.featureIcon}>{feature.icon}</div>
+            <div style={styles.featureIcon} data-feature-icon>
+              {feature.icon}
+            </div>
             <div>
               <h4 style={styles.featureTitle}>{feature.title}</h4>
               <p style={styles.featureDesc}>{feature.desc}</p>
@@ -618,71 +607,67 @@ const HeroSection: React.FC = () => (
 
     <div style={styles.heroRight}>
       <div style={styles.cardGrid}>
-        {/* Card 1 - Web Development Course */}
+        {/* Card 1 - Farm Management */}
         <div style={styles.card} data-card>
-          <img
-            src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop"
-            alt="Web Development Course"
-            style={styles.cardImage}
-          />
-          <div style={styles.cardBadge}>🚀</div>
+          <div style={{ ...styles.gradientCard, height: "100%" }}>
+            <div style={styles.cardOverlay} />
+          </div>
+          <div style={styles.cardBadge}>🌾</div>
           <div style={styles.floatingWidget}>
-            <p style={styles.widgetLabel}>Complete Course</p>
-            <h4 style={styles.widgetTitle}>Web Dev Masterclass</h4>
+            <p style={styles.widgetLabel}>Enterprise Solution</p>
+            <h4 style={styles.widgetTitle}>Farm Management</h4>
           </div>
         </div>
 
-        {/* Card 2 - Payment Methods Highlight */}
-        <div style={{ ...styles.card, ...styles.gradientCard }} data-card>
-          <img
-            src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?q=80&w=1200&auto=format&fit=crop"
-            alt="Secure Payments"
-            style={{
-              ...styles.cardImage,
-              opacity: 0.9,
-              mixBlendMode: "lighten",
-            }}
-          />
-          <div style={styles.cardOverlay} />
-          <div style={styles.floatingWidgetMember}>
-            <div style={styles.memberAvatar}>
-              <div style={styles.avatarCircle}>💰</div>
-              <div>
-                <h4 style={styles.memberName}>Quick Checkout</h4>
-                <p style={styles.memberStatus}>M-Pesa & Paybill</p>
-              </div>
-            </div>
-            <span style={styles.memberAmount}>Enabled</span>
-          </div>
-        </div>
-
-        {/* Card 3 - Study Materials */}
-        <div style={styles.card} data-card>
-          <img
-            src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?q=80&w=1200&auto=format&fit=crop"
-            alt="Study Materials"
-            style={styles.cardImage}
-          />
+        {/* Card 2 - Church Management */}
+        <div
+          style={{
+            ...styles.card,
+            background: "linear-gradient(135deg, #e8f5f1, #d1e8e3)",
+          }}
+          data-card
+        >
           <div style={styles.cardContent}>
             <div style={styles.contentBox}>
-              <p style={styles.contentLabel}>Premium Resources</p>
-              <h4 style={styles.contentTitle}>Study Videos & Materials</h4>
+              <p style={styles.contentLabel}>Ministry Solution</p>
+              <h4 style={styles.contentTitle}>Church Management System</h4>
             </div>
           </div>
+          <div style={styles.cardBadge}>⛪</div>
         </div>
 
-        {/* Card 4 - Launch Promo */}
-        <div style={{ ...styles.card, ...styles.promoBg }} data-card>
+        {/* Card 3 - Website Development */}
+        <div
+          style={{
+            ...styles.card,
+            background: "linear-gradient(135deg, #2563eb, #1e40af)",
+          }}
+          data-card
+        >
+          <div style={styles.cardOverlay} />
+          <div style={styles.floatingWidget}>
+            <p style={styles.widgetLabel}>Custom Development</p>
+            <h4 style={styles.widgetTitle}>Web Development</h4>
+          </div>
+          <div style={styles.cardBadge}>🌐</div>
+        </div>
+
+        {/* Card 4 - IT Support */}
+        <div
+          style={{ ...styles.card, ...styles.promoBg }}
+          data-card
+          onClick={onPaymentClick}
+        >
           <div style={styles.promoTop}>
-            <div style={styles.promoIcon}>✨</div>
+            <div style={styles.promoIcon}>💡</div>
           </div>
           <div>
             <h3 style={styles.promoTitle}>
-              POWER YOUR <br /> SKILLS TODAY
+              IT SUPPORT <br /> CONSULTATION
             </h3>
             <p style={styles.promoDesc}>
-              Premium applications, expert-led courses, and quality content. All
-              with secure M-Pesa & Paybill payments.
+              Pay for expert consultation to assess your IT requirements and
+              receive tailored solutions.
             </p>
           </div>
         </div>
@@ -691,18 +676,99 @@ const HeroSection: React.FC = () => (
   </div>
 );
 
+const PaymentModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
+  isOpen,
+  onClose,
+}) => {
+  if (!isOpen) return null;
+
+  return (
+    <div style={styles.paymentModal} onClick={onClose}>
+      <div style={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+        <button style={styles.closeBtn} onClick={onClose}>
+          ×
+        </button>
+        <h2 style={styles.modalTitle}>How to Pay via Paybill</h2>
+
+        <div style={styles.paymentSteps}>
+          <div style={styles.step}>
+            <div style={styles.stepNumber}>1</div>
+            <div style={styles.stepContent}>
+              <p style={styles.stepTitle}>Open your M-Pesa App</p>
+              <p style={styles.stepDesc}>
+                Launch the M-Pesa application on your phone
+              </p>
+            </div>
+          </div>
+
+          <div style={styles.step}>
+            <div style={styles.stepNumber}>2</div>
+            <div style={styles.stepContent}>
+              <p style={styles.stepTitle}>Select Lipa na M-Pesa Online</p>
+              <p style={styles.stepDesc}>Choose the Paybill payment option</p>
+            </div>
+          </div>
+
+          <div style={styles.step}>
+            <div style={styles.stepNumber}>3</div>
+            <div style={styles.stepContent}>
+              <p style={styles.stepTitle}>Enter Paybill Details</p>
+              <p style={styles.stepDesc}>
+                <strong>Business Number:</strong> Contact us for details
+                <br />
+                <strong>Account Number:</strong> Your project/service reference
+                <br />
+                <strong>Amount:</strong> Enter the amount
+              </p>
+            </div>
+          </div>
+
+          <div style={styles.step}>
+            <div style={styles.stepNumber}>4</div>
+            <div style={styles.stepContent}>
+              <p style={styles.stepTitle}>Enter Your PIN</p>
+              <p style={styles.stepDesc}>
+                Confirm the payment with your M-Pesa PIN
+              </p>
+            </div>
+          </div>
+
+          <div style={styles.step}>
+            <div style={styles.stepNumber}>5</div>
+            <div style={styles.stepContent}>
+              <p style={styles.stepTitle}>Confirmation</p>
+              <p style={styles.stepDesc}>
+                You'll receive a confirmation message. Save your receipt.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div
+          style={{
+            marginTop: "2rem",
+            padding: "1.5rem",
+            background: "#eff6ff",
+            borderRadius: "1rem",
+            borderLeft: "4px solid #2563eb",
+          }}
+        >
+          <p style={{ color: "#1e40af", fontWeight: 600, margin: 0 }}>
+            💬 Need help? Contact us for the exact Paybill details and to
+            discuss your solution.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const BrandSection: React.FC = () => (
   <div style={styles.brandsSection}>
     <p style={styles.brandsText}>
-      Trusted by students, developers, and professionals across Africa
+      ✓ Farm Management &nbsp; ✓ Church Systems &nbsp; ✓ Web Development &nbsp;
+      ✓ IT Support
     </p>
-    <div style={styles.brandsList}>
-      {["TechAcademy", "DevCourse", "SkillHub", "LearnApp"].map((brand) => (
-        <span key={brand} style={styles.brandItem} data-brand-item>
-          {brand}
-        </span>
-      ))}
-    </div>
   </div>
 );
 
@@ -711,13 +777,19 @@ const BrandSection: React.FC = () => (
 // ============================================================================
 
 export default function Home() {
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+
   return (
     <>
       <style>{keyframes}</style>
       <main style={styles.main}>
         <Header />
-        <HeroSection />
+        <HeroSection onPaymentClick={() => setShowPaymentModal(true)} />
         <BrandSection />
+        <PaymentModal
+          isOpen={showPaymentModal}
+          onClose={() => setShowPaymentModal(false)}
+        />
       </main>
     </>
   );
