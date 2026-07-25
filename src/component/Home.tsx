@@ -7,14 +7,14 @@ import React, { CSSProperties, useState } from "react";
 const styles = {
   main: {
     background: "#f7f7f8",
-    overflow: "hidden" as const,
-    position: "relative" as const,
+    overflow: "hidden",
+    position: "relative",
     borderRadius: "10px",
+    width: "100%",
     maxWidth: "1450px",
-    width: "98%",
-    padding: "1.75rem",
-    boxShadow: "0 25px 80px rgba(0, 0, 0, 0.08)",
-    margin: "1rem auto",
+    margin: "0 auto",
+    padding: "clamp(1rem, 3vw, 2rem)",
+    boxSizing: "border-box",
   } as CSSProperties,
 
   header: {
@@ -27,19 +27,18 @@ const styles = {
     display: "flex" as const,
     alignItems: "center",
     gap: "0.75rem",
-  } as CSSProperties,
 
-  logoIcon: {
-    background: "linear-gradient(135deg, #2563eb 0%, #1e40af 100%)",
-    width: "2.75rem",
-    height: "2.75rem",
-    borderRadius: "0.75rem",
-    display: "flex" as const,
-    alignItems: "center",
-    justifyContent: "center",
-    color: "white",
-    fontWeight: 900,
-    boxShadow: "0 10px 25px rgba(0, 0, 0, 0.1)",
+    fontFamily: "'Orbitron', sans-serif",
+    fontWeight: "900",
+    textTransform: "uppercase",
+    letterSpacing: "2px",
+    fontSize: "clamp(20px, 4vw, 32px)",
+    background: "linear-gradient(90deg, #1c6069, #00c6ff)",
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+    cursor: "pointer",
+    userSelect: "none",
+    whiteSpace: "nowrap",
   } as CSSProperties,
 
   logoText: {
@@ -229,7 +228,8 @@ const styles = {
     borderRadius: "2rem",
     overflow: "hidden" as const,
     background: "white",
-    height: "270px",
+    height: "auto",
+    minHeight: "200px",
     transition: "0.45s ease",
     cursor: "pointer",
   } as CSSProperties,
@@ -464,6 +464,108 @@ const styles = {
     fontWeight: 500,
     margin: 0,
   } as CSSProperties,
+
+  statsSection: {
+    marginTop: "6rem",
+    padding: "4rem 2rem",
+    background: "linear-gradient(135deg, #1e40af 0%, #2563eb 100%)",
+    borderRadius: "2rem",
+    display: "grid" as const,
+    gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+    gap: "2rem",
+    position: "relative" as const,
+  } as CSSProperties,
+
+  statItem: {
+    textAlign: "center" as const,
+    color: "white",
+  } as CSSProperties,
+
+  statNumber: {
+    fontSize: "3.5rem",
+    fontWeight: 900,
+    lineHeight: "1",
+    marginBottom: "0.5rem",
+  } as CSSProperties,
+
+  statLabel: {
+    fontSize: "1rem",
+    fontWeight: 600,
+    opacity: 0.95,
+    lineHeight: "1.5",
+  } as CSSProperties,
+
+  benefitsSection: {
+    marginTop: "5rem",
+    display: "grid" as const,
+    gridTemplateColumns: "1fr 1fr",
+    gap: "4rem",
+    alignItems: "center",
+  } as CSSProperties,
+
+  benefitsContent: {
+    display: "flex" as const,
+    flexDirection: "column" as const,
+    gap: "2rem",
+  } as CSSProperties,
+
+  benefitsTitle: {
+    fontSize: "2.75rem",
+    fontWeight: 900,
+    color: "#111",
+    lineHeight: "1.2",
+    margin: 0,
+  } as CSSProperties,
+
+  benefitsList: {
+    display: "flex" as const,
+    flexDirection: "column" as const,
+    gap: "1.5rem",
+  } as CSSProperties,
+
+  benefitItem: {
+    display: "flex" as const,
+    gap: "1.25rem",
+    alignItems: "flex-start",
+  } as CSSProperties,
+
+  benefitCheck: {
+    fontSize: "1.5rem",
+    color: "#2563eb",
+    fontWeight: 900,
+    flexShrink: 0,
+  } as CSSProperties,
+
+  benefitText: {
+    display: "flex" as const,
+    flexDirection: "column" as const,
+    gap: "0.25rem",
+  } as CSSProperties,
+
+  benefitItemTitle: {
+    fontSize: "1.125rem",
+    fontWeight: 700,
+    color: "#111",
+    margin: 0,
+  } as CSSProperties,
+
+  benefitItemDesc: {
+    fontSize: "0.875rem",
+    color: "#8b8b95",
+    margin: 0,
+    lineHeight: "1.5",
+  } as CSSProperties,
+
+  benefitsImage: {
+    width: "100%",
+    height: "400px",
+    borderRadius: "1.5rem",
+    background: "linear-gradient(135deg, #eff6ff, #dbeafe)",
+    display: "flex" as const,
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "6rem",
+  } as CSSProperties,
 };
 
 // ============================================================================
@@ -526,18 +628,30 @@ const keyframes = `
 // Components
 // ============================================================================
 
-const Header: React.FC = () => (
-  <header style={styles.header}>
-    <div style={styles.logo}>
-      <div style={styles.logoIcon}>💼</div>
-      <h2 style={styles.logoText}>OCEANCRASH</h2>
-    </div>
+const Header: React.FC = () => {
+  const handleContactClick = () => {
+    window.location.href =
+      "mailto:oceancrashkenya@gmail.com?subject=Inquiry&body=Hello";
+  };
 
-    <div style={styles.buttonGroup}>
-      <button style={styles.contactBtn}>Contact Us</button>
-    </div>
-  </header>
-);
+  const handleLogoClick = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  return (
+    <header style={styles.header}>
+      <div style={styles.logo} onClick={handleLogoClick}>
+        <h2 style={styles.logoText}>OCEANCRASH</h2>
+      </div>
+
+      <div style={styles.buttonGroup}>
+        <button style={styles.contactBtn} onClick={handleContactClick}>
+          Contact Us
+        </button>
+      </div>
+    </header>
+  );
+};
 
 const HeroSection: React.FC<{ onPaymentClick: () => void }> = ({
   onPaymentClick,
@@ -556,7 +670,15 @@ const HeroSection: React.FC<{ onPaymentClick: () => void }> = ({
       </p>
 
       <div style={styles.ctaButtons}>
-        <button style={styles.primaryBtn} data-primary-btn>
+        <button
+          style={styles.primaryBtn}
+          data-primary-btn
+          onClick={() => {
+            document
+              .querySelector("[data-hero-container]")
+              ?.scrollIntoView({ behavior: "smooth" });
+          }}
+        >
           Explore Solutions
         </button>
         <button
@@ -608,14 +730,31 @@ const HeroSection: React.FC<{ onPaymentClick: () => void }> = ({
     <div style={styles.heroRight}>
       <div style={styles.cardGrid}>
         {/* Card 1 - Farm Management */}
-        <div style={styles.card} data-card>
-          <div style={{ ...styles.gradientCard, height: "100%" }}>
-            <div style={styles.cardOverlay} />
-          </div>
+        <div
+          style={{
+            ...styles.card,
+            background: "linear-gradient(135deg, #2563eb, #1e40af)",
+            padding: "2rem",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "flex-end",
+          }}
+          data-card
+        >
           <div style={styles.cardBadge}>🌾</div>
-          <div style={styles.floatingWidget}>
-            <p style={styles.widgetLabel}>Enterprise Solution</p>
-            <h4 style={styles.widgetTitle}>Farm Management</h4>
+          <div style={{ color: "white" }}>
+            <p style={{ margin: 0, fontSize: "0.875rem", opacity: 0.9 }}>
+              Enterprise Solution
+            </p>
+            <h4
+              style={{
+                margin: "0.5rem 0 0 0",
+                fontSize: "1.25rem",
+                fontWeight: 700,
+              }}
+            >
+              Farm Management
+            </h4>
           </div>
         </div>
 
@@ -624,50 +763,83 @@ const HeroSection: React.FC<{ onPaymentClick: () => void }> = ({
           style={{
             ...styles.card,
             background: "linear-gradient(135deg, #e8f5f1, #d1e8e3)",
+            padding: "2rem",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "flex-end",
           }}
           data-card
         >
-          <div style={styles.cardContent}>
-            <div style={styles.contentBox}>
-              <p style={styles.contentLabel}>Ministry Solution</p>
-              <h4 style={styles.contentTitle}>Church Management System</h4>
-            </div>
-          </div>
           <div style={styles.cardBadge}>⛪</div>
+          <div>
+            <p style={{ margin: 0, fontSize: "0.875rem", color: "#666" }}>
+              Ministry Solution
+            </p>
+            <h4
+              style={{
+                margin: "0.5rem 0 0 0",
+                fontSize: "1.25rem",
+                fontWeight: 700,
+                color: "#111",
+              }}
+            >
+              Church Management
+            </h4>
+          </div>
         </div>
 
         {/* Card 3 - Website Development */}
         <div
           style={{
             ...styles.card,
-            background: "linear-gradient(135deg, #2563eb, #1e40af)",
+            background: "linear-gradient(135deg, #00c6ff, #1c6069)",
+            padding: "2rem",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "flex-end",
           }}
           data-card
         >
-          <div style={styles.cardOverlay} />
-          <div style={styles.floatingWidget}>
-            <p style={styles.widgetLabel}>Custom Development</p>
-            <h4 style={styles.widgetTitle}>Web Development</h4>
-          </div>
           <div style={styles.cardBadge}>🌐</div>
+          <div style={{ color: "white" }}>
+            <p style={{ margin: 0, fontSize: "0.875rem", opacity: 0.9 }}>
+              Custom Development
+            </p>
+            <h4
+              style={{
+                margin: "0.5rem 0 0 0",
+                fontSize: "1.25rem",
+                fontWeight: 700,
+              }}
+            >
+              Web Development
+            </h4>
+          </div>
         </div>
 
         {/* Card 4 - IT Support */}
         <div
-          style={{ ...styles.card, ...styles.promoBg }}
+          style={{
+            ...styles.card,
+            background: "linear-gradient(135deg, #e8f5f1, #d1e8e3)",
+            padding: "2rem",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            cursor: "pointer",
+          }}
           data-card
           onClick={onPaymentClick}
         >
-          <div style={styles.promoTop}>
+          <div style={{ textAlign: "right" }}>
             <div style={styles.promoIcon}>💡</div>
           </div>
           <div>
-            <h3 style={styles.promoTitle}>
-              IT SUPPORT <br /> CONSULTATION
+            <h3 style={{ ...styles.promoTitle, margin: "1rem 0 0.5rem 0" }}>
+              IT Support
             </h3>
-            <p style={styles.promoDesc}>
-              Pay for expert consultation to assess your IT requirements and
-              receive tailored solutions.
+            <p style={{ ...styles.promoDesc, margin: 0 }}>
+              Click to see payment & consultation details
             </p>
           </div>
         </div>
@@ -763,15 +935,191 @@ const PaymentModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
   );
 };
 
-const BrandSection: React.FC = () => (
-  <div style={styles.brandsSection}>
-    <p style={styles.brandsText}>
-      ✓ Farm Management &nbsp; ✓ Church Systems &nbsp; ✓ Web Development &nbsp;
-      ✓ IT Support
-    </p>
+const StatsSection: React.FC = () => (
+  <div style={styles.statsSection}>
+    <div style={styles.statItem}>
+      <div style={styles.statNumber}>500+</div>
+      <p style={styles.statLabel}>Clients Worldwide</p>
+    </div>
+    <div style={styles.statItem}>
+      <div style={styles.statNumber}>15+</div>
+      <p style={styles.statLabel}>Years Experience</p>
+    </div>
+    <div style={styles.statItem}>
+      <div style={styles.statNumber}>99.9%</div>
+      <p style={styles.statLabel}>Uptime Guarantee</p>
+    </div>
+    <div style={styles.statItem}>
+      <div style={styles.statNumber}>24/7</div>
+      <p style={styles.statLabel}>Support Available</p>
+    </div>
   </div>
 );
 
+const BenefitsSection: React.FC = () => (
+  <div style={styles.benefitsSection}>
+    <div style={styles.benefitsContent}>
+      <h2 style={styles.benefitsTitle}>Why Choose Our Solutions?</h2>
+      <div style={styles.benefitsList}>
+        <div style={styles.benefitItem}>
+          <div style={styles.benefitCheck}>✓</div>
+          <div style={styles.benefitText}>
+            <p style={styles.benefitItemTitle}>Customizable & Scalable</p>
+            <p style={styles.benefitItemDesc}>
+              Our systems grow with your business, adaptable to any size or
+              complexity
+            </p>
+          </div>
+        </div>
+        <div style={styles.benefitItem}>
+          <div style={styles.benefitCheck}>✓</div>
+          <div style={styles.benefitText}>
+            <p style={styles.benefitItemTitle}>User-Friendly Interface</p>
+            <p style={styles.benefitItemDesc}>
+              Intuitive design ensures your team can start using it immediately
+            </p>
+          </div>
+        </div>
+        <div style={styles.benefitItem}>
+          <div style={styles.benefitCheck}>✓</div>
+          <div style={styles.benefitText}>
+            <p style={styles.benefitItemTitle}>Secure & Reliable</p>
+            <p style={styles.benefitItemDesc}>
+              Enterprise-grade security with regular backups and monitoring
+            </p>
+          </div>
+        </div>
+        <div style={styles.benefitItem}>
+          <div style={styles.benefitCheck}>✓</div>
+          <div style={styles.benefitText}>
+            <p style={styles.benefitItemTitle}>Expert Support Team</p>
+            <p style={styles.benefitItemDesc}>
+              Dedicated professionals ready to help with training and
+              troubleshooting
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style={styles.benefitsImage}>🎯</div>
+  </div>
+);
+
+// const BrandSection: React.FC = () => (
+//   <div style={styles.brandsSection}>
+//     <p style={styles.brandsText}>
+//       ✓ Farm Management &nbsp; ✓ Church Systems &nbsp; ✓ Web Development &nbsp;
+//       ✓ IT Support
+//     </p>
+//   </div>
+// );
+
+const Footer: React.FC = () => (
+  <footer
+    style={{
+      marginTop: "5rem",
+      background: "#0f172a",
+      color: "#fff",
+      borderRadius: "0 0 10px 10px",
+      padding: "4rem 2rem 2rem",
+    }}
+  >
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(220px,1fr))",
+        gap: "3rem",
+        marginBottom: "3rem",
+      }}
+    >
+      {/* Company */}
+      <div>
+        <h2
+          style={{
+            marginBottom: "1rem",
+            fontSize: "1.6rem",
+            fontWeight: 800,
+          }}
+        >
+          OCEANCRASH
+        </h2>
+
+        <p
+          style={{
+            color: "#cbd5e1",
+            lineHeight: "1.8",
+            fontSize: "0.95rem",
+          }}
+        >
+          Oceancrash delivers enterprise software solutions for churches, farms,
+          schools, businesses, and organizations. We also provide professional
+          web development and IT consultation services tailored to your needs.
+        </p>
+      </div>
+
+      {/* Services */}
+      <div>
+        <h3 style={{ marginBottom: "1rem" }}>Services</h3>
+
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: ".8rem",
+            color: "#cbd5e1",
+          }}
+        >
+          <span>Farm Management System</span>
+          <span>Church Management System</span>
+          <span>Website Development</span>
+          <span>Custom Software</span>
+          <span>IT Consultation</span>
+        </div>
+      </div>
+
+      {/* Contact */}
+      <div>
+        <h3 style={{ marginBottom: "1rem" }}>Contact</h3>
+
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: ".8rem",
+            color: "#cbd5e1",
+          }}
+        >
+          <span>📞 +254 759 621 394</span>
+          <span>✉️ oceancrashkenya@gmail.com</span>
+          <span>🌍 Kilifi, Kenya</span>
+          <span>Mon - Fri : 8:00 AM - 5:00 PM</span>
+        </div>
+      </div>
+    </div>
+
+    {/* Divider */}
+    <div
+      style={{
+        borderTop: "1px solid rgba(255,255,255,.12)",
+        paddingTop: "1.5rem",
+        display: "flex",
+        justifyContent: "space-between",
+        flexWrap: "wrap",
+        gap: "1rem",
+        alignItems: "center",
+      }}
+    >
+      <p
+        style={{
+          color: "#94a3b8",
+          margin: 0,
+        }}
+      >
+        © {new Date().getFullYear()} Oceancrash. All Rights Reserved.
+      </p>
+    </div>
+  </footer>
+);
 // ============================================================================
 // Main Page
 // ============================================================================
@@ -785,11 +1133,13 @@ export default function Home() {
       <main style={styles.main}>
         <Header />
         <HeroSection onPaymentClick={() => setShowPaymentModal(true)} />
-        <BrandSection />
+        <StatsSection />
+        <BenefitsSection />
         <PaymentModal
           isOpen={showPaymentModal}
           onClose={() => setShowPaymentModal(false)}
         />
+        <Footer />
       </main>
     </>
   );
