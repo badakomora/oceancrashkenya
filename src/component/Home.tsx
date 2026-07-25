@@ -1,3 +1,5 @@
+"use client";
+
 import React, { CSSProperties, useState } from "react";
 
 // ============================================================================
@@ -653,9 +655,11 @@ const Header: React.FC = () => {
   );
 };
 
-const HeroSection: React.FC<{ onPaymentClick: () => void }> = ({
-  onPaymentClick,
-}) => (
+interface HeroSectionProps {
+  onPaymentClick: (service: string) => void;
+}
+
+const HeroSection: React.FC<HeroSectionProps> = ({ onPaymentClick }) => (
   <div style={styles.heroContainer} data-hero-container>
     <div style={styles.heroLeft}>
       <span style={styles.badge}>🚀 Custom Business Solutions</span>
@@ -684,7 +688,7 @@ const HeroSection: React.FC<{ onPaymentClick: () => void }> = ({
         <button
           style={styles.secondaryBtn}
           data-secondary-btn
-          onClick={onPaymentClick}
+          onClick={() => onPaymentClick("itsupport")}
         >
           IT Support Payment Info
           <span>↗</span>
@@ -740,6 +744,7 @@ const HeroSection: React.FC<{ onPaymentClick: () => void }> = ({
             justifyContent: "flex-end",
           }}
           data-card
+          onClick={() => onPaymentClick("farm")}
         >
           <div style={styles.cardBadge}>🌾</div>
           <div style={{ color: "white" }}>
@@ -769,6 +774,7 @@ const HeroSection: React.FC<{ onPaymentClick: () => void }> = ({
             justifyContent: "flex-end",
           }}
           data-card
+          onClick={() => onPaymentClick("church")}
         >
           <div style={styles.cardBadge}>⛪</div>
           <div>
@@ -799,6 +805,7 @@ const HeroSection: React.FC<{ onPaymentClick: () => void }> = ({
             justifyContent: "flex-end",
           }}
           data-card
+          onClick={() => onPaymentClick("website")}
         >
           <div style={styles.cardBadge}>🌐</div>
           <div style={{ color: "white" }}>
@@ -829,7 +836,7 @@ const HeroSection: React.FC<{ onPaymentClick: () => void }> = ({
             cursor: "pointer",
           }}
           data-card
-          onClick={onPaymentClick}
+          onClick={() => onPaymentClick("itsupport")}
         >
           <div style={{ textAlign: "right" }}>
             <div style={styles.promoIcon}>💡</div>
@@ -848,11 +855,41 @@ const HeroSection: React.FC<{ onPaymentClick: () => void }> = ({
   </div>
 );
 
-const PaymentModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
+interface PaymentModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  selectedService?: string;
+}
+
+const PaymentModal: React.FC<PaymentModalProps> = ({
   isOpen,
   onClose,
+  selectedService,
 }) => {
   if (!isOpen) return null;
+
+  const serviceMessages: Record<string, string> = {
+    farm: "I am interested in your Farm Management System solution.",
+    church: "I am interested in your Church Management System solution.",
+    website: "I am interested in your Web Development services.",
+    itsupport: "I am interested in your IT Support and Consultation services.",
+  };
+
+  const emailSubject = `Inquiry about ${selectedService || "your services"}`;
+  const emailBody =
+    serviceMessages[selectedService || ""] ||
+    "I am interested in learning more about your services.";
+
+  const handleShareEmail = () => {
+    const mailto = `mailto:oceancrashkenya@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody + "\n\nPlease send me more information and pricing details.")}`;
+
+    // Check if we're in an iframe (v0 preview)
+    if (window.self !== window.top) {
+      window.open(mailto, "_blank");
+    } else {
+      window.location.href = mailto;
+    }
+  };
 
   return (
     <div style={styles.paymentModal} onClick={onClose}>
@@ -925,10 +962,37 @@ const PaymentModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
             borderLeft: "4px solid #2563eb",
           }}
         >
-          <p style={{ color: "#1e40af", fontWeight: 600, margin: 0 }}>
-            💬 Need help? Contact us for the exact Paybill details and to
-            discuss your solution.
+          <p
+            style={{ color: "#1e40af", fontWeight: 600, margin: "0 0 1rem 0" }}
+          >
+            💬 After payment, click the button below to share your email with us
           </p>
+          <button
+            onClick={handleShareEmail}
+            style={{
+              width: "100%",
+              background: "linear-gradient(135deg, #2563eb 0%, #1e40af 100%)",
+              color: "white",
+              padding: "0.75rem 1.5rem",
+              borderRadius: "0.5rem",
+              border: "none",
+              fontWeight: 600,
+              cursor: "pointer",
+              transition: "0.3s ease",
+              fontSize: "1rem",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "translateY(-2px)";
+              e.currentTarget.style.boxShadow =
+                "0 10px 20px rgba(37, 99, 235, 0.3)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow = "none";
+            }}
+          >
+            📧 Open Email to Share Details
+          </button>
         </div>
       </div>
     </div>
@@ -1126,18 +1190,25 @@ const Footer: React.FC = () => (
 
 export default function Home() {
   const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [selectedService, setSelectedService] = useState<string>("");
+
+  const handlePaymentClick = (service: string) => {
+    setSelectedService(service);
+    setShowPaymentModal(true);
+  };
 
   return (
     <>
       <style>{keyframes}</style>
       <main style={styles.main}>
         <Header />
-        <HeroSection onPaymentClick={() => setShowPaymentModal(true)} />
+        <HeroSection onPaymentClick={handlePaymentClick} />
         <StatsSection />
         <BenefitsSection />
         <PaymentModal
           isOpen={showPaymentModal}
           onClose={() => setShowPaymentModal(false)}
+          selectedService={selectedService}
         />
         <Footer />
       </main>
