@@ -1,5 +1,3 @@
-"use client";
-
 import React, { CSSProperties, useState } from "react";
 
 // ============================================================================
@@ -96,10 +94,13 @@ const styles = {
   } as CSSProperties,
 
   heroContainer: {
-    display: "grid" as const,
+    display: "grid",
     gridTemplateColumns: "1fr",
     gap: "4rem",
-    alignItems: "center",
+    alignItems: "start",
+    width: "100%",
+    maxWidth: "1200px",
+    margin: "0 auto",
     padding: "4rem 0 0",
   } as CSSProperties,
 
@@ -1204,7 +1205,13 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
         <button style={styles.closeBtn} onClick={onClose}>
           ×
         </button>
-        <h2 style={styles.modalTitle}>How to Pay via Paybill</h2>
+        <h2 style={styles.modalTitle}>`How to Pay via Paybill`</h2>
+        <p>
+          <b>Note : </b>A KSh 5,000 consultation fee is required to get started.
+          After making your payment, send your confirmation email and keep this
+          window open while we verify it. All communication will be via email,
+          and responses may take up to 24 hours.
+        </p>
 
         <div style={styles.paymentSteps}>
           <div style={styles.step}>
@@ -1230,11 +1237,12 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
             <div style={styles.stepContent}>
               <p style={styles.stepTitle}>Enter Paybill Details</p>
               <p style={styles.stepDesc}>
-                <strong>Business Number:</strong> Contact us for details
+                <strong>Business Number:</strong> xxxxx
                 <br />
-                <strong>Account Number:</strong> Your project/service reference
+                <strong>Account Number:</strong> xxxxx
                 <br />
-                <strong>Amount:</strong> Enter the amount
+                <strong>Amount:</strong> Enter amount 5000 KSh for consultation
+                fee
               </p>
             </div>
           </div>
