@@ -101,7 +101,7 @@ const styles = {
     width: "100%",
     maxWidth: "1200px",
     margin: "0 auto",
-    padding: "4rem 0 0",
+    // padding: "4rem 0 0",
   } as CSSProperties,
 
   heroLeft: {
