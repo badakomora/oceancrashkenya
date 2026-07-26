@@ -45,8 +45,8 @@ const styles = {
     fontFamily: "'Orbitron', sans-serif",
     fontWeight: "900",
     textTransform: "uppercase",
-    letterSpacing: "2px",
-    fontSize: "clamp(18px, 4vw, 28px)",
+    letterSpacing: "4px",
+    fontSize: "clamp(18px, 4vw, 30px)",
     background: "linear-gradient(90deg, #1e40af, #2563eb)",
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
@@ -801,12 +801,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 }) => (
   <div style={styles.heroContainer} data-hero-container data-benefits-section>
     <div style={styles.heroLeft}>
-      <span style={styles.badge}>🚀 Custom Business Solutions</span>
-
       <h1 style={styles.headline} data-headline>
         Enterprise Software <br /> For Your Business.
       </h1>
-
+      <span style={styles.badge}>🚀 Custom Business Solutions</span>
       <p style={styles.description}>
         Specialized applications for farms and churches. Custom web development
         and professional IT support.
