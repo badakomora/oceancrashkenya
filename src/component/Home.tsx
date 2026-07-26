@@ -808,7 +808,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 
       <p style={styles.description}>
         Specialized applications for farms and churches. Custom web development
-        and professional IT support. Fast payments via Paybill.
+        and professional IT support.
       </p>
 
       <div style={styles.ctaButtons}>
