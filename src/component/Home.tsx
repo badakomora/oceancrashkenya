@@ -101,10 +101,13 @@ const styles = {
     gap: "4rem",
     alignItems: "center",
     padding: "4rem 0 0",
-    // backgroundImage: "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCTwWXrAQ4rszEKaZpLhTfkM4aDUhmhV-EFkVBkhBsPjcEalno8A_32QnY&s=10')",
   } as CSSProperties,
 
   heroLeft: {
+    animation: "fadeUp 1s ease",
+  } as CSSProperties & { animation: string },
+
+  heroRight: {
     animation: "fadeUp 1s ease",
   } as CSSProperties & { animation: string },
 
@@ -214,10 +217,112 @@ const styles = {
     lineHeight: "1.5rem",
   } as CSSProperties,
 
-  heroRight: {
+  productsSection: {
+    marginTop: "6rem",
+    paddingTop: "2rem",
+  } as CSSProperties,
+
+  productsTitle: {
+    fontSize: "2.75rem",
+    fontWeight: 900,
+    color: "#111",
+    marginBottom: "0.5rem",
+    margin: 0,
+  } as CSSProperties,
+
+  productsSubtitle: {
+    fontSize: "1.125rem",
+    color: "#8a8a95",
+    marginBottom: "3rem",
+  } as CSSProperties,
+
+  productGrid: {
+    display: "grid" as const,
+    gridTemplateColumns: "1fr",
+    gap: "2rem",
+  } as CSSProperties,
+
+  featuredCard: {
     position: "relative" as const,
-    animation: "fadeUp 1s ease",
-  } as CSSProperties & { animation: string },
+    borderRadius: "2rem",
+    overflow: "hidden" as const,
+    background: "linear-gradient(135deg, #2563eb 0%, #1e40af 100%)",
+    padding: "3rem",
+    display: "flex" as const,
+    flexDirection: "column" as const,
+    justifyContent: "space-between",
+    minHeight: "320px",
+    cursor: "pointer",
+    transition: "0.45s ease",
+    color: "white",
+  } as CSSProperties,
+
+  productCard: {
+    position: "relative" as const,
+    borderRadius: "1.5rem",
+    overflow: "hidden" as const,
+    background: "white",
+    padding: "2rem",
+    display: "flex" as const,
+    flexDirection: "column" as const,
+    justifyContent: "space-between",
+    minHeight: "220px",
+    cursor: "pointer",
+    transition: "0.35s ease",
+    border: "1px solid #e7e7ef",
+  } as CSSProperties,
+
+  productBadge: {
+    display: "inline-flex" as const,
+    alignItems: "center",
+    gap: "0.5rem",
+    fontSize: "0.875rem",
+    fontWeight: 600,
+    marginBottom: "1rem",
+    width: "fit-content",
+  } as CSSProperties,
+
+  badgeLight: {
+    color: "rgba(255, 255, 255, 0.8)",
+  } as CSSProperties,
+
+  badgeDark: {
+    color: "#1e40af",
+  } as CSSProperties,
+
+  productIcon: {
+    fontSize: "2.5rem",
+    marginBottom: "1rem",
+  } as CSSProperties,
+
+  productTitle: {
+    fontSize: "1.5rem",
+    fontWeight: 700,
+    margin: "0 0 0.75rem 0",
+  } as CSSProperties,
+
+  productGoal: {
+    fontSize: "0.875rem",
+    lineHeight: "1.6",
+    margin: "0 0 1.5rem 0",
+    opacity: 0.9,
+  } as CSSProperties,
+
+  productAction: {
+    display: "inline-flex" as const,
+    alignItems: "center",
+    gap: "0.5rem",
+    fontSize: "0.875rem",
+    fontWeight: 600,
+    color: "inherit",
+    textDecoration: "none",
+  } as CSSProperties,
+
+  productGridSmall: {
+    display: "grid" as const,
+    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+    gap: "2rem",
+  } as CSSProperties,
 
   cardGrid: {
     display: "grid" as const,
@@ -611,6 +716,15 @@ const keyframes = `
     transform: translateY(-8px);
   }
 
+  [data-featured-card]:hover {
+    transform: translateY(-4px);
+  }
+
+  [data-product-card]:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(37, 99, 235, 0.15);
+  }
+
   [data-primary-btn]:hover {
     transform: translateY(-4px);
     box-shadow: 0 15px 35px rgba(45, 122, 94, 0.25);
@@ -632,8 +746,8 @@ const keyframes = `
 
 const Header: React.FC = () => {
   const handleContactClick = () => {
-    window.location.href =
-      "mailto:oceancrashkenya@gmail.com?subject=Inquiry&body=Hello";
+    const footerSection = document.querySelector("[data-footer-section]");
+    footerSection?.scrollIntoView({ behavior: "smooth" });
   };
 
   const handleLogoClick = () => {
@@ -657,9 +771,13 @@ const Header: React.FC = () => {
 
 interface HeroSectionProps {
   onPaymentClick: (service: string) => void;
+  onExploreClick: () => void;
 }
 
-const HeroSection: React.FC<HeroSectionProps> = ({ onPaymentClick }) => (
+const HeroSection: React.FC<HeroSectionProps> = ({
+  onPaymentClick,
+  onExploreClick,
+}) => (
   <div style={styles.heroContainer} data-hero-container>
     <div style={styles.heroLeft}>
       <span style={styles.badge}>🚀 Custom Business Solutions</span>
@@ -677,20 +795,21 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onPaymentClick }) => (
         <button
           style={styles.primaryBtn}
           data-primary-btn
-          onClick={() => {
-            document
-              .querySelector("[data-hero-container]")
-              ?.scrollIntoView({ behavior: "smooth" });
-          }}
+          onClick={onExploreClick}
         >
-          Explore Solutions
+          Explore Products
         </button>
         <button
           style={styles.secondaryBtn}
           data-secondary-btn
-          onClick={() => onPaymentClick("itsupport")}
+          onClick={() => {
+            const reviewsSection = document.querySelector(
+              "[data-reviews-section]",
+            );
+            reviewsSection?.scrollIntoView({ behavior: "smooth" });
+          }}
         >
-          IT Support Payment Info
+          See Customer Reviews
           <span>↗</span>
         </button>
       </div>
@@ -698,24 +817,24 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onPaymentClick }) => (
       <div style={styles.featuresGrid}>
         {[
           {
-            icon: "🌾",
-            title: "Farm Management System",
-            desc: "Customizable for any farm size or crop type.",
+            icon: "📊",
+            title: "Business Analytics",
+            desc: "Real-time insights and performance metrics.",
           },
           {
-            icon: "⛪",
-            title: "Church Management System",
-            desc: "Complete ministry and congregation tools.",
+            icon: "☁️",
+            title: "Cloud Integration",
+            desc: "Seamless data sync across all platforms.",
           },
           {
-            icon: "🌐",
-            title: "Website Development",
-            desc: "Custom web solutions for any industry.",
+            icon: "🔐",
+            title: "Enterprise Security",
+            desc: "Bank-level encryption and compliance.",
           },
           {
-            icon: "🛠️",
-            title: "IT Support Consultation",
-            desc: "Expert assessment of your IT needs.",
+            icon: "⚡",
+            title: "24/7 Support",
+            desc: "Dedicated technical assistance anytime.",
           },
         ].map((feature, idx) => (
           <div key={idx} style={styles.featureItem}>
@@ -731,7 +850,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onPaymentClick }) => (
       </div>
     </div>
 
-    <div style={styles.heroRight}>
+    <div style={styles.heroRight} data-products-section>
+      <h2 style={styles.productsTitle}>Our Products</h2>
+      <p style={styles.productsSubtitle}>
+        Click for details. Proven reliability.
+      </p>
       <div style={styles.cardGrid}>
         {/* Card 1 - Farm Management */}
         <div
@@ -760,6 +883,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onPaymentClick }) => (
             >
               Farm Management
             </h4>
+            <p>
+              Enterprise-grade farm management system for crop tracking,
+              inventory management, and operational analytics.
+            </p>
           </div>
         </div>
 
@@ -791,6 +918,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onPaymentClick }) => (
             >
               Church Management
             </h4>
+            <p>
+              Complete ministry tools for congregation management, event
+              scheduling, donations, and member communications.
+            </p>
           </div>
         </div>
 
@@ -821,6 +952,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onPaymentClick }) => (
             >
               Web Development
             </h4>
+            <p>
+              Custom-built responsive websites optimized for conversions, SEO,
+              and user experience.
+            </p>
           </div>
         </div>
 
@@ -846,7 +981,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onPaymentClick }) => (
               IT Support
             </h3>
             <p style={{ ...styles.promoDesc, margin: 0 }}>
-              Click to see payment & consultation details
+              Professional IT consultation, system setup, and 24/7 technical
+              support for all your technology needs.
             </p>
           </div>
         </div>
@@ -854,6 +990,156 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onPaymentClick }) => (
     </div>
   </div>
 );
+
+const ReviewsSection: React.FC = () => {
+  return (
+    <div style={styles.productsSection} data-reviews-section>
+      <h2 style={styles.productsTitle}>What Our Clients Say</h2>
+      <p style={styles.productsSubtitle}>
+        Real feedback from organizations we've worked with
+      </p>
+
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+          gap: "2rem",
+          marginTop: "3rem",
+        }}
+      >
+        {/* Mali Green Farms Ltd Review */}
+        <div
+          style={{
+            ...styles.productCard,
+            borderLeft: "4px solid #22c55e",
+            paddingLeft: "1.5rem",
+          }}
+        >
+          <div style={{ marginBottom: "1rem" }}>
+            <div style={{ fontSize: "1.5rem", marginBottom: "0.5rem" }}>🌾</div>
+            <h3
+              style={{
+                ...styles.productTitle,
+                margin: "0 0 0.5rem 0",
+                color: "#111",
+              }}
+            >
+              Mali Green Farms Ltd
+            </h3>
+            <p
+              style={{
+                margin: 0,
+                fontSize: "0.875rem",
+                color: "#666",
+                fontWeight: 500,
+              }}
+            >
+              Agricultural Operations
+            </p>
+          </div>
+          <p
+            style={{ ...styles.productGoal, color: "#555", lineHeight: "1.6" }}
+          >
+            "The farm management system has transformed our operations. We now
+            track yields more accurately, manage inventory efficiently, and make
+            better decisions with real-time data. Outstanding support team!"
+          </p>
+        </div>
+
+        {/* P.A.G Ministry Church Review */}
+        <div
+          style={{
+            ...styles.productCard,
+            borderLeft: "4px solid #06b6d4",
+            paddingLeft: "1.5rem",
+          }}
+        >
+          <div style={{ marginBottom: "1rem" }}>
+            <div style={{ fontSize: "1.5rem", marginBottom: "0.5rem" }}>⛪</div>
+            <h3
+              style={{
+                ...styles.productTitle,
+                margin: "0 0 0.5rem 0",
+                color: "#111",
+              }}
+            >
+              P.A.G Ministry Church
+            </h3>
+            <p
+              style={{
+                margin: 0,
+                fontSize: "0.875rem",
+                color: "#666",
+                fontWeight: 500,
+              }}
+            >
+              Religious Organization
+            </p>
+          </div>
+          <p
+            style={{ ...styles.productGoal, color: "#555", lineHeight: "1.6" }}
+          >
+            "Church management has never been easier. Member records, event
+            coordination, and donation tracking are all in one place. The system
+            helps us focus on ministry rather than administration."
+          </p>
+          <p
+            style={{
+              fontSize: "0.875rem",
+              color: "#f59e0b",
+              fontWeight: 600,
+              marginTop: "1rem",
+              marginBottom: 0,
+            }}
+          >
+            ✓ Program still under review with the church ministry.
+          </p>
+        </div>
+
+        {/* IT Support Review */}
+        <div
+          style={{
+            ...styles.productCard,
+            borderLeft: "4px solid #8b5cf6",
+            paddingLeft: "1.5rem",
+          }}
+        >
+          <div style={{ marginBottom: "1rem" }}>
+            <div style={{ fontSize: "1.5rem", marginBottom: "0.5rem" }}>💡</div>
+            <h3
+              style={{
+                ...styles.productTitle,
+                margin: "0 0 0.5rem 0",
+                color: "#111",
+              }}
+            >
+              IT Support & Services
+            </h3>
+            <p
+              style={{
+                margin: 0,
+                fontSize: "0.875rem",
+                color: "#666",
+                fontWeight: 500,
+              }}
+            >
+              Technical Services
+            </p>
+          </div>
+          <p
+            style={{ ...styles.productGoal, color: "#555", lineHeight: "1.6" }}
+          >
+            "From OS installations and MS Office packages to live football
+            streaming on TV and complete email management systems—we've handled
+            it all. Our clients appreciate the personalized, reliable technical
+            support and comprehensive solutions tailored to their specific
+            needs."
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 interface PaymentModalProps {
   isOpen: boolean;
@@ -869,10 +1155,10 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
   if (!isOpen) return null;
 
   const serviceMessages: Record<string, string> = {
-    farm: "I am interested in your Farm Management System solution.",
-    church: "I am interested in your Church Management System solution.",
+    farm: "I am interested in your Farm Management System.",
+    church: "I am interested in your Church Management System.",
     website: "I am interested in your Web Development services.",
-    itsupport: "I am interested in your IT Support and Consultation services.",
+    itsupport: "I am interested in your IT Support and consultation services.",
   };
 
   const emailSubject = `Inquiry about ${selectedService || "your services"}`;
@@ -1002,11 +1288,11 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
 const StatsSection: React.FC = () => (
   <div style={styles.statsSection}>
     <div style={styles.statItem}>
-      <div style={styles.statNumber}>500+</div>
+      <div style={styles.statNumber}>50+</div>
       <p style={styles.statLabel}>Clients Worldwide</p>
     </div>
     <div style={styles.statItem}>
-      <div style={styles.statNumber}>15+</div>
+      <div style={styles.statNumber}>7+</div>
       <p style={styles.statLabel}>Years Experience</p>
     </div>
     <div style={styles.statItem}>
@@ -1069,15 +1355,6 @@ const BenefitsSection: React.FC = () => (
   </div>
 );
 
-// const BrandSection: React.FC = () => (
-//   <div style={styles.brandsSection}>
-//     <p style={styles.brandsText}>
-//       ✓ Farm Management &nbsp; ✓ Church Systems &nbsp; ✓ Web Development &nbsp;
-//       ✓ IT Support
-//     </p>
-//   </div>
-// );
-
 const Footer: React.FC = () => (
   <footer
     style={{
@@ -1087,6 +1364,7 @@ const Footer: React.FC = () => (
       borderRadius: "0 0 10px 10px",
       padding: "4rem 2rem 2rem",
     }}
+    data-footer-section
   >
     <div
       style={{
@@ -1143,7 +1421,8 @@ const Footer: React.FC = () => (
 
       {/* Contact */}
       <div>
-        <h3 style={{ marginBottom: "1rem" }}>Contact</h3>
+        <h3 style={{ marginBottom: "1rem" }}>Contact Us</h3>
+        <p>Have questions or want to learn more? Reach out to us!</p>
 
         <div
           style={{
@@ -1184,6 +1463,7 @@ const Footer: React.FC = () => (
     </div>
   </footer>
 );
+
 // ============================================================================
 // Main Page
 // ============================================================================
@@ -1197,12 +1477,21 @@ export default function Home() {
     setShowPaymentModal(true);
   };
 
+  const handleExploreClick = () => {
+    const productsSection = document.querySelector("[data-products-section]");
+    productsSection?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <>
       <style>{keyframes}</style>
       <main style={styles.main}>
         <Header />
-        <HeroSection onPaymentClick={handlePaymentClick} />
+        <HeroSection
+          onPaymentClick={handlePaymentClick}
+          onExploreClick={handleExploreClick}
+        />
+        <ReviewsSection />
         <StatsSection />
         <BenefitsSection />
         <PaymentModal
