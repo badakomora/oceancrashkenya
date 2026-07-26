@@ -1203,7 +1203,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
         <button style={styles.closeBtn} onClick={onClose}>
           ×
         </button>
-        <h2 style={styles.modalTitle}>`How to Pay via Paybill`</h2>
+        <h2 style={styles.modalTitle}>Payment Instructions</h2>
         <p style={{ color: "#1e40af", fontWeight: 600, margin: "0 0 1rem 0" }}>
           💬A KSh 5,000 Project Discovery fee is required to begin. This fee
           covers an initial discussion to understand your requirements and
