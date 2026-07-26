@@ -47,7 +47,7 @@ const styles = {
     textTransform: "uppercase",
     letterSpacing: "4px",
     fontSize: "clamp(18px, 4vw, 30px)",
-    background: "linear-gradient(90deg, #1e40af, #2563eb)",
+    color: "linear-gradient(90deg, #1c6069, #00c6ff)",
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
     cursor: "pointer",
