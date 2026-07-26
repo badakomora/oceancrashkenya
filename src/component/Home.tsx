@@ -1206,13 +1206,14 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
           ×
         </button>
         <h2 style={styles.modalTitle}>`How to Pay via Paybill`</h2>
-        <p>
-          <b>Note : </b>A KSh 5,000 consultation fee is required to get started.
-          After making your payment, send your confirmation email and keep this
-          window open while we verify it. All communication will be via email,
-          and responses may take up to 24 hours.
+        <p style={{ color: "#1e40af", fontWeight: 600, margin: "0 0 1rem 0" }}>
+          💬A KSh 5,000 Project Discovery fee is required to begin. This fee
+          covers an initial discussion to understand your requirements and
+          determine the best solution for your needs. After payment, wait for
+          your M-Pesa confirmation message, then return here and click the
+          button below to send the pre-filled confirmation email. Responses may
+          take up to 24 hours.
         </p>
-
         <div style={styles.paymentSteps}>
           <div style={styles.step}>
             <div style={styles.stepNumber}>1</div>
@@ -1277,11 +1278,6 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
             borderLeft: "4px solid #2563eb",
           }}
         >
-          <p
-            style={{ color: "#1e40af", fontWeight: 600, margin: "0 0 1rem 0" }}
-          >
-            💬 After payment, click the button below to share your email with us
-          </p>
           <button
             onClick={handleShareEmail}
             style={{
