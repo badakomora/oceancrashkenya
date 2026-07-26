@@ -320,13 +320,13 @@ const styles = {
 
   productGridSmall: {
     display: "grid" as const,
-    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+    gridTemplateColumns: "1fr",
     gap: "2rem",
   } as CSSProperties,
 
   cardGrid: {
     display: "grid" as const,
-    gridTemplateColumns: "1fr 1fr",
+    gridTemplateColumns: "1fr",
     gap: "1.25rem",
   } as CSSProperties,
 
@@ -578,7 +578,7 @@ const styles = {
     background: "linear-gradient(135deg, #1e40af 0%, #2563eb 100%)",
     borderRadius: "2rem",
     display: "grid" as const,
-    gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+    gridTemplateColumns: "1fr",
     gap: "2rem",
     position: "relative" as const,
   } as CSSProperties,
@@ -605,7 +605,7 @@ const styles = {
   benefitsSection: {
     marginTop: "5rem",
     display: "grid" as const,
-    gridTemplateColumns: "1fr 1fr",
+    gridTemplateColumns: "1fr",
     gap: "4rem",
     alignItems: "center",
   } as CSSProperties,
@@ -700,15 +700,35 @@ const keyframes = `
     }
   }
 
+  @media (min-width: 768px) {
+    [data-hero-container] {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    [data-card-grid] {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    [data-reviews-grid] {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    [data-headline] {
+      font-size: 4.625rem;
+    }
+  }
+
   @media (min-width: 1024px) {
     [data-hero-container] {
       grid-template-columns: 1fr 1fr;
     }
-  }
-
-  @media (min-width: 768px) {
-    [data-headline] {
-      font-size: 4.625rem;
+    
+    [data-benefits-section] {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    [data-stats-section] {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
   }
 
@@ -778,7 +798,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   onPaymentClick,
   onExploreClick,
 }) => (
-  <div style={styles.heroContainer} data-hero-container>
+  <div style={styles.heroContainer} data-hero-container data-benefits-section>
     <div style={styles.heroLeft}>
       <span style={styles.badge}>🚀 Custom Business Solutions</span>
 
@@ -855,7 +875,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
       <p style={styles.productsSubtitle}>
         Click for details. Proven reliability.
       </p>
-      <div style={styles.cardGrid}>
+      <div style={styles.cardGrid} data-card-grid>
         {/* Card 1 - Farm Management */}
         <div
           style={{
@@ -1002,10 +1022,11 @@ const ReviewsSection: React.FC = () => {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+          gridTemplateColumns: "1fr",
           gap: "2rem",
           marginTop: "3rem",
         }}
+        data-reviews-grid
       >
         {/* Mali Green Farms Ltd Review */}
         <div
@@ -1286,7 +1307,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
 };
 
 const StatsSection: React.FC = () => (
-  <div style={styles.statsSection}>
+  <div style={styles.statsSection} data-stats-section>
     <div style={styles.statItem}>
       <div style={styles.statNumber}>50+</div>
       <p style={styles.statLabel}>Clients Worldwide</p>
@@ -1307,7 +1328,7 @@ const StatsSection: React.FC = () => (
 );
 
 const BenefitsSection: React.FC = () => (
-  <div style={styles.benefitsSection}>
+  <div style={styles.benefitsSection} data-benefits-section>
     <div style={styles.benefitsContent}>
       <h2 style={styles.benefitsTitle}>Why Choose Our Solutions?</h2>
       <div style={styles.benefitsList}>
