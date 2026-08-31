@@ -11,7 +11,7 @@ const styles = {
     position: "relative",
     borderRadius: "10px",
     width: "100%",
-    maxWidth: "1450px",
+    maxWidth: "1500px",
     margin: "0 auto",
     padding: "clamp(1rem, 3vw, 2rem)",
     boxSizing: "border-box",
@@ -806,7 +806,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
       </h1>
       <span style={styles.badge}>🚀 Custom Business Solutions</span>
       <p style={styles.description}>
-        Specialized applications for farms and churches. Custom web development
+        Buy Specialized applications for farms and churches. Get custom web development services
         and professional IT support.
       </p>
 
