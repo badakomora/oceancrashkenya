@@ -1054,7 +1054,7 @@ const ReviewsSection: React.FC = () => {
                 fontWeight: 500,
               }}
             >
-              Agricultural Operations
+              Management Office
             </p>
           </div>
           <p
