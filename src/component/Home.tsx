@@ -1036,7 +1036,7 @@ const ReviewsSection: React.FC = () => {
           }}
         >
           <div style={{ marginBottom: "1rem" }}>
-            <div style={{ fontSize: "1.5rem", marginBottom: "0.5rem" }}>🌾</div>
+            <div style={{ fontSize: "1.5rem", marginBottom: "0.5rem" }}>🐐🥛</div>
             <h3
               style={{
                 ...styles.productTitle,
@@ -1060,9 +1060,7 @@ const ReviewsSection: React.FC = () => {
           <p
             style={{ ...styles.productGoal, color: "#555", lineHeight: "1.6" }}
           >
-            "The farm management system has transformed our operations. We now
-            track yields more accurately, manage inventory efficiently, and make
-            better decisions with real-time data. Outstanding support team!"
+            "This system transformed our goat dairy! We now manage livestock, track milk production, coordinate employees, and handle sales, budgets, and reports all in one place with real-time data. Outstanding support team!"
           </p>
         </div>
 
