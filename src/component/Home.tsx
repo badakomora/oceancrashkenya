@@ -6,14 +6,14 @@ import React, { CSSProperties, useState } from "react";
 
 const styles = {
   main: {
-    background: "#f7f7f8",
+    background: "#f7f8fa",
     overflow: "hidden",
     position: "relative",
-    borderRadius: "10px",
-    width: "100%",
-    maxWidth: "1500px",
-    margin: "0 auto",
-    padding: "clamp(1rem, 3vw, 2rem)",
+    borderRadius: "16px",
+    width: "calc(100% - 2rem)",
+    maxWidth: "1320px",
+    margin: "24px auto",
+    padding: "clamp(1rem, 3vw, 2.5rem)",
     boxSizing: "border-box",
   } as CSSProperties,
 
@@ -96,11 +96,12 @@ const styles = {
   heroContainer: {
     display: "grid",
     gridTemplateColumns: "1fr",
-    gap: "4rem",
+    gap: "clamp(2rem, 4vw, 3.5rem)",
     alignItems: "start",
     width: "100%",
-    maxWidth: "1200px",
+    maxWidth: "1120px",
     margin: "0 auto",
+    minWidth: 0,
     // padding: "4rem 0 0",
   } as CSSProperties,
 
@@ -180,14 +181,25 @@ const styles = {
   featuresGrid: {
     display: "flex" as const,
     flexWrap: "wrap" as const,
-    gap: "2.5rem",
-    marginTop: "3.5rem",
+    gap: "1.25rem",
+    marginTop: "3rem",
+    alignItems: "stretch",
+    maxWidth: "650px",
+    width: "100%",
+    minWidth: 0,
   } as CSSProperties,
 
   featureItem: {
     display: "flex" as const,
     alignItems: "flex-start",
-    gap: "1rem",
+    gap: "0.85rem",
+    flex: "1 1 240px",
+    minWidth: 0,
+    padding: "0.85rem",
+    borderRadius: "12px",
+    background: "#ffffff",
+    border: "1px solid #e8edf3",
+    boxSizing: "border-box",
   } as CSSProperties,
 
   featureIcon: {
@@ -219,8 +231,11 @@ const styles = {
   } as CSSProperties,
 
   productsSection: {
-    marginTop: "6rem",
+    margin: "5rem auto 0",
     paddingTop: "2rem",
+    width: "100%",
+    maxWidth: "1120px",
+    boxSizing: "border-box",
   } as CSSProperties,
 
   productsTitle: {
@@ -327,19 +342,29 @@ const styles = {
 
   cardGrid: {
     display: "grid" as const,
-    gridTemplateColumns: "1fr",
+    gridTemplateColumns: "minmax(0, 1fr)",
     gap: "1.25rem",
+    width: "100%",
+    alignItems: "stretch",
+    minWidth: 0,
   } as CSSProperties,
 
   card: {
     position: "relative" as const,
-    borderRadius: "2rem",
+    borderRadius: "20px",
     overflow: "hidden" as const,
     background: "white",
     height: "auto",
-    minHeight: "200px",
-    transition: "0.45s ease",
+    minHeight: "250px",
+    padding: "1.75rem",
+    boxSizing: "border-box",
+    display: "flex" as const,
+    flexDirection: "column" as const,
+    justifyContent: "flex-end",
+    transition: "0.3s ease",
     cursor: "pointer",
+    boxShadow: "0 4px 16px rgba(15, 23, 42, 0.06)",
+    minWidth: 0,
   } as CSSProperties,
 
   cardImage: {
@@ -574,12 +599,15 @@ const styles = {
   } as CSSProperties,
 
   statsSection: {
-    marginTop: "6rem",
-    padding: "4rem 2rem",
+    margin: "5rem auto 0",
+    padding: "3rem 1.5rem",
+    width: "100%",
+    maxWidth: "1120px",
+    boxSizing: "border-box",
     background: "linear-gradient(135deg, #1e40af 0%, #2563eb 100%)",
-    borderRadius: "2rem",
+    borderRadius: "24px",
     display: "grid" as const,
-    gridTemplateColumns: "1fr",
+    gridTemplateColumns: "minmax(0, 1fr)",
     gap: "2rem",
     position: "relative" as const,
   } as CSSProperties,
@@ -604,11 +632,14 @@ const styles = {
   } as CSSProperties,
 
   benefitsSection: {
-    marginTop: "5rem",
+    margin: "5rem auto 0",
+    width: "100%",
+    maxWidth: "1120px",
     display: "grid" as const,
-    gridTemplateColumns: "1fr",
-    gap: "4rem",
+    gridTemplateColumns: "minmax(0, 1fr)",
+    gap: "3rem",
     alignItems: "center",
+    minWidth: 0,
   } as CSSProperties,
 
   benefitsContent: {
@@ -682,84 +713,109 @@ const styles = {
 
 const keyframes = `
   @keyframes fadeUp {
-    from {
-      opacity: 0;
-      transform: translateY(45px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   @keyframes floating {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
   }
+
+  [data-hero-container],
+  [data-hero-container] > *,
+  [data-card-grid],
+  [data-reviews-grid],
+  [data-benefits-section] > * {
+    min-width: 0;
+  }
+
+  [data-card] {
+    box-sizing: border-box;
+    overflow-wrap: anywhere;
+  }
+
+  [data-card] p { line-height: 1.65; }
 
   @media (min-width: 768px) {
     [data-hero-container] {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 2.5rem;
     }
-    
     [data-card-grid] {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-    
     [data-reviews-grid] {
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-
     [data-headline] {
-      font-size: 4.625rem;
+      font-size: clamp(3rem, 4vw, 4rem);
+      line-height: 1.05;
+      letter-spacing: -2px;
+    }
+    [data-stats-section] {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    [data-benefits-section] {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     }
   }
 
-  @media (min-width: 1024px) {
-    [data-hero-container] {
-      grid-template-columns: 1fr 1fr;
+  @media (min-width: 1100px) {
+    [data-hero-container] { gap: 3.5rem; }
+    [data-reviews-grid] {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
-    
-    [data-benefits-section] {
-      grid-template-columns: 1fr 1fr;
-    }
-    
     [data-stats-section] {
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
 
   [data-card]:hover {
-    transform: translateY(-8px);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
   }
-
-  [data-featured-card]:hover {
-    transform: translateY(-4px);
-  }
-
+  [data-featured-card]:hover { transform: translateY(-4px); }
   [data-product-card]:hover {
     transform: translateY(-4px);
     box-shadow: 0 12px 24px rgba(37, 99, 235, 0.15);
   }
-
   [data-primary-btn]:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 15px 35px rgba(45, 122, 94, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(37, 99, 235, 0.22);
   }
-
   [data-secondary-btn]:hover {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     transform: translateY(-1px);
   }
+  [data-feature-icon]:hover { transform: translateY(-2px); }
 
-  [data-feature-icon]:hover {
-    transform: translateY(-1px);
+  @media (max-width: 767px) {
+    [data-headline] {
+      font-size: clamp(2.25rem, 9vw, 3.25rem);
+      line-height: 1.08;
+      letter-spacing: -1.5px;
+    }
+    [data-hero-container] { gap: 2.5rem; }
+    [data-card-grid],
+    [data-reviews-grid] {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    [data-stats-section] { padding: 2.5rem 1.25rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 `;
+
 
 // ============================================================================
 // Components
