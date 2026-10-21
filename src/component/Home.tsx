@@ -903,8 +903,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               Farm Management
             </h4>
             <p>
-              Enterprise-grade farm management system for crop tracking,
-              inventory management, and operational analytics.
+             Enterprise-grade farm management system for operations with advanced herd and milk tracking, end-to-end dairy inventory management, and powerful operational analytics driven by real-time data.
             </p>
           </div>
         </div>
