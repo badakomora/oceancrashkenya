@@ -1080,7 +1080,7 @@ const ReviewsSection: React.FC = () => {
                 color: "#111",
               }}
             >
-              P.A.G Ministry Church
+             Ministry Desk
             </h3>
             <p
               style={{
@@ -1090,7 +1090,7 @@ const ReviewsSection: React.FC = () => {
                 fontWeight: 500,
               }}
             >
-              Religious Organization
+              P.A.G Coast Region Overseer
             </p>
           </div>
           <p
